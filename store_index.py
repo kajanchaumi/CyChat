@@ -1,5 +1,3 @@
-
-
 from dotenv import load_dotenv
 import os
 from src.helper import load_pdf_file, filter_to_minimal_docs, text_split, download_hugging_face_embeddings
