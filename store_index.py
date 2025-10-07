@@ -14,16 +14,16 @@ os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 # Load English PDFs
-eng_pdfs = load_pdf_file(data='D:\CyChat\CyChat\data\en')
+eng_pdfs = load_pdf_file(data='D:\CyChat\CyChat\data\d-en')
 
 # Load Tamil PDFs
-tamil_pdfs = load_pdf_file(data='D:\CyChat\CyChat\data\ta')
+tamil_pdfs = load_pdf_file(data='D:\CyChat\CyChat\data\d-ta')
 
 # Load CSV (Tamil/English)
-#csv_docs = load_csv_file(file_path='D:/CyChat/CyChat/data/csv/tamil_data.csv')
+csv_docs = load_csv_file(file_path='D:\CyChat\CyChat\data\d-ta\csv\data-ta.csv')
 
 # Merge all docs
-all_docs = eng_pdfs + tamil_pdfs #+ csv_docs
+all_docs = eng_pdfs + tamil_pdfs + csv_docs
 filter_data = filter_to_minimal_docs(all_docs)
 text_chunks = text_split(filter_data)
 
@@ -50,4 +50,5 @@ docsearch = PineconeVectorStore.from_documents(
     documents=text_chunks,
     index_name=index_name,
     embedding=embeddings,
+    upsert_kwargs={"batch_size": 50}  # smaller batch
 )
